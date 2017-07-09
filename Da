@@ -1,0 +1,80 @@
+static String Alfabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        public static SortedList<char, int> listaFrecvente = new SortedList<char, int>();
+
+        public static String TextModificat;
+        
+        public static Dictionary<char, int> dic = new Dictionary<char, int>();
+
+        public static Dictionary<String, int> dicBigrame = new Dictionary<String, int>();
+        public static Dictionary<String, int> dicTrigrame = new Dictionary<String, int>();
+        public static void calculeazaFrecvente(String text) {
+            text = Regex.Replace(text, @"\s+", "");
+            for (int i = 0; i < Alfabet.Length; i++) {
+                int count = 0;
+                for (int j = 0; j < text.Length; j++) {
+                    if (text[j]==Alfabet[i]) {
+                        count++;
+                    }
+                }
+                listaFrecvente.Add(Alfabet[i], count);
+                dic.Add(Alfabet[i], count);
+                
+            }
+
+            var ordered = dic.OrderByDescending(x => x.Value);
+            dic = ordered.ToDictionary(t => t.Key, t => t.Value);
+        }
+
+        public static void inlocuieste(String Intrare, String x, String y) {
+            //TextModificat = Intrare.Replace(x,y);
+            if (TextModificat == null)
+            {
+                TextModificat = Intrare.Replace(x, y);
+            }
+            else {
+                TextModificat = TextModificat.Replace(x, y);
+            }
+
+        }
+
+        public static void Bigrame(String Text) {
+             Text = Regex.Replace(Text, @"\s+", "");
+            int count;
+            for (int i = 0; i < Text.Length-1; i++) {
+                String x =Text.Substring(i, 2);
+                count = new Regex(Regex.Escape(x)).Matches(Text).Count;
+                if (dicBigrame.ContainsKey(x)) {
+
+                }
+                else {
+                    dicBigrame.Add(x, count);
+                }
+
+            }
+            var ordered = dicBigrame.OrderByDescending(x => x.Value);
+            dicBigrame = ordered.ToDictionary(t => t.Key, t => t.Value);
+
+        }
+
+        public static void Trigrame(String Text) {
+            Text = Regex.Replace(Text, @"\s+", "");
+            int count;
+            for (int i = 0; i < Text.Length - 2; i++)
+            {
+                String x = Text.Substring(i, 3);
+                count = new Regex(Regex.Escape(x)).Matches(Text).Count;
+                if (dicTrigrame.ContainsKey(x))
+                {
+
+                }
+                else
+                {
+                    dicTrigrame.Add(x, count);
+                }
+
+            }
+            var ordered = dicTrigrame.OrderByDescending(x => x.Value);
+            dicTrigrame = ordered.ToDictionary(t => t.Key, t => t.Value);
+
+        }
