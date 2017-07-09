@@ -1,0 +1,48 @@
+private void button1_Click(object sender, EventArgs e)
+        {
+            Functii.calculeazaFrecvente(TextInitial.Text);
+
+            Frecvente.DataSource = new BindingSource(Functii.dic,null);
+
+            Functii.Bigrame(TextInitial.Text);
+            Bigrame.DataSource = new BindingSource(Functii.dicBigrame, null);
+
+            Functii.Trigrame(TextInitial.Text);
+            Trigrame.DataSource = new BindingSource(Functii.dicTrigrame, null);
+        }
+
+        private void Frecvente_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            textProcesat.Clear();
+            String intrare = TextInitial.Text;
+            String schimba = TextSchimba.Text;
+            String cu = TextCu.Text;
+            Functii.inlocuieste(intrare, schimba, cu);
+            textProcesat.AppendText(Functii.TextModificat);
+            //textProcesat.AppendText(Functii.inlocuieste(intrare,schimba,cu));
+        }
+
+        private void Undo_Click(object sender, EventArgs e)
+        {
+            String intrare = TextInitial.Text;
+            String schimba = TextSchimba.Text;
+            String cu = TextCu.Text;
+            Functii.inlocuieste(intrare, cu, schimba);
+            textProcesat.Clear();
+            textProcesat.AppendText(Functii.TextModificat);
+        }
